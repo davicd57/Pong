@@ -1,47 +1,50 @@
-body{background-color: rgb(2, 19, 0);}
+var player=document.getElementById("player");
+var position=190;
+var position_ball=0;
+var ball=document.getElementById("ball");
+var time=1;
+var score=document.getElementById("score");
+var points_rival=0;
+var your_points=0;
 
-#left{position: absolute;
-      top: 90%;
-      right: 80%;
-      width: 50px;
-      height: 50px;
-      border-radius: 100px;
-       }
+score.innerHTML="Score"+your_points+"x"+points_rival
 
-#right{position: absolute;
-      top: 90%;
-      left: 80%;
-      width: 50px;
-      height: 50px;
-      border-radius: 100px;
-       }
 
-#line{background-color: white;
-      width: 1000px;
-      height: 10px;
-      position: absolute;
-      left: 0%;
-      top: 80%;}
+function left(){
+    position-=10;
+    player.style.left=position+"px";
+}
 
-#score{position: absolute;
-       top: 5%;
-       left: 35%;
-       color: white;
-       font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-       font-size: xx-large;
-       }
+function right(){
+    position+=10;
+    player.style.left=position+"px";
+}
 
-#player{position: absolute;
-       top: 75%;
-       left: 40%;
-       background-color: white;
-       width: 90px;
-       height: 7px;}
+function game(){
+    var playerRect=player.getBoundingClientRect();
+    var ballRect=ball.getBoundingClientRect();
+    position_ball+=1
+    ball.style.top=position_ball+"px";
+    setTimeout(game,time); 
 
-#ball{position: absolute;
-       top: 20%;
-       left: 40%;
-       background-color: white;
-       width: 30px;
-       height: 30px;
-       border-radius: 100px;}
+    if (ball.style.top=="670px"){
+        position_ball = 0;
+        ball.style.top = "0px";
+        points_rival+=1;
+        score.innerHTML="Score:0x"+points_rival;
+    }
+
+    if (ballRect.bottom>=playerRect.top &&
+        ballRect.left<playerRect.right &&
+        ballRect.right>=playerRect.left
+    ){
+        position_ball = 0;
+        ball.style.top = "0px";
+        your_points+=1;
+        score.innerHTML="Score:"+your_points+"x0";
+    }
+    
+
+
+}
+game()
