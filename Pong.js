@@ -1,4 +1,5 @@
 var position=190;
+var start_button=document.getElementById("start_button");
 function left(){
     position-=10;
     player.style.left=position+"px";
@@ -10,14 +11,15 @@ function right(){
 }
 
 document.addEventListener("keydown", function(event) {
-  if (event.key === "ArrowLeft") {
+if (event.key === "ArrowLeft") {
     left();
-  } else if (event.key === "ArrowRight") {
+} else if (event.key === "ArrowRight") {
     right();
-  }
+}
 });
 
 function start(){
+    start_button.remove()
     var player=document.getElementById("player");
     var position_ball=0;
     var ball=document.getElementById("ball");
@@ -25,6 +27,7 @@ function start(){
     var score=document.getElementById("score");
     var points_rival=0;
     var your_points=0;
+    var result=document.getElementById("result");
     score.innerHTML="Score"+your_points+"x"+points_rival
 
     function game(){
@@ -41,10 +44,8 @@ function start(){
             ball.style.left=ball_spawn+"px";
             points_rival+=1;
             score.innerHTML="Score:"+your_points+"x"+points_rival
-
-            if (your_points==10){
-                position_ball=0
-                console.log("vc venceu")
+            if (points_rival==15){
+                result.innerHTML="You Lose"
             }
         }
 
@@ -58,14 +59,11 @@ function start(){
             ball.style.left=ball_spawn+"px";
             your_points+=1;
             score.innerHTML="Score:"+your_points+"x"+points_rival
-
-            if (points_rival==10){
-                position_ball=0
-                console.log("vc perdeu")
+            if (your_points==15){
+                result.innerHTML="You Win"
             }
         }
 
     }
     game()
-    }
-start()
+    } 
