@@ -46,6 +46,9 @@ function start(){
             score.innerHTML="Score:"+your_points+"x"+points_rival
             if (points_rival==15){
                 result.innerHTML="You Lose"
+                ball.remove()
+                score.remove()
+                setTimeout(reload_page,2000)
             }
         }
 
@@ -61,7 +64,14 @@ function start(){
             score.innerHTML="Score:"+your_points+"x"+points_rival
             if (your_points==15){
                 result.innerHTML="You Win"
+                ball.remove()
+                score.remove()
+                setTimeout(reload_page,2000)
             }
+        }
+
+        function reload_page(){
+            location.reload()
         }
 
     }
